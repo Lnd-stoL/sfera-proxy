@@ -6,7 +6,7 @@
 load_balancing_proxy::load_balancing_proxy(const std::string &ip, int port) :
     _acceptor(_ioservice, b_ip::tcp::endpoint(b_ip::address::from_string(ip), (unsigned short)port), true)
 {
-    std::cout << "starting load-balancing proxy at " << ip << ":" << port;
+    std::cout << "proxy: starting load-balancing proxy at " << ip << ":" << port;
 
     _acceptor.listen();
     _startAsyncAccept();
@@ -17,11 +17,15 @@ load_balancing_proxy::load_balancing_proxy(const std::string &ip, int port) :
 
 load_balancing_proxy::~load_balancing_proxy()
 {
+    // nothing to do:
+    // everything is considered properly deleted here
+    // using smart pointers
 }
 
 
 void load_balancing_proxy::run()
 {
+    std::cout << "proxy: registered worker servers: " << _serversList.size() << std::endl;
     _ioservice.run();
 }
 

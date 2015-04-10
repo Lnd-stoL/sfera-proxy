@@ -118,7 +118,7 @@ void connection_tunnel::_handleServerWrite(const b_sys::error_code &ec, size_t b
 
 void connection_tunnel::_startAsyncClientRead()
 {
-    _clientSocket->async_read_some(_clientBuff.prepare(1024),
+    _clientSocket->async_read_some(_clientBuff.prepare(_clientReadChunkLength),
                                    boost::bind(&connection_tunnel::_handleClientRead,
                                                this, b_asio::placeholders::error,
                                                b_asio::placeholders::bytes_transferred));
@@ -138,7 +138,7 @@ void connection_tunnel::_startAsyncServerWrite()
 
 void connection_tunnel::_startAsyncServerRead()
 {
-    _serverSocket->async_read_some(_serverBuff.prepare(1024),
+    _serverSocket->async_read_some(_serverBuff.prepare(_serverReadChunkLength),
                                    boost::bind(&connection_tunnel::_handleServerRead,
                                                this, b_asio::placeholders::error,
                                                b_asio::placeholders::bytes_transferred));

@@ -23,6 +23,9 @@ private:
     b_asio::streambuf _clientBuff;
     b_asio::streambuf _serverBuff;
 
+    size_t _clientReadChunkLength = 2048;
+    size_t _serverReadChunkLength = 2048;
+
     bool _closing = false;
     unsigned _pendingAsyncOperations = 0;
 
